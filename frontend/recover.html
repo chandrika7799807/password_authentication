@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recover Account</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+    }
+
+    .container {
+      background: #fff;
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      width: 350px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #555;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border 0.3s;
+    }
+
+    input:focus {
+      border-color: #2575fc;
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      background-color: #2575fc;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background-color: #6a11cb;
+      transform: scale(1.05);
+    }
+
+    .note {
+      font-size: 12px;
+      color: #888;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Recover Account</h2>
+
+    <label for="email">Email</label>
+    <input type="email" id="email" placeholder="Enter your email">
+
+    <button onclick="sendOTP()">Send OTP</button>
+
+    <label for="otp">OTP</label>
+    <input type="text" id="otp" placeholder="Enter OTP">
+
+    <button onclick="verifyOTP()">Verify & Update Device</button>
+
+    <p class="note">Your device info will be securely updated after verification.</p>
+  </div>
+
+  <script>
+    function getDevice(){
+      return navigator.userAgent + "-" + screen.width + "x" + screen.height;
+    }
+
+    function sendOTP(){
+      const email = document.getElementById("email").value;
+
+      fetch("https://domingo-cathodoluminescent-never.ngrok-free.dev/send-otp", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ email: email })
+      })
+      .then(res => res.json())
+      .then(data => alert(data))
+      .catch(err => alert("Error sending OTP"));
+    }
+
+    function verifyOTP(){
+      const email = document.getElementById("email").value;
+      const otp = document.getElementById("otp").value;
+      const device = getDevice();
+
+      fetch("https://domingo-cathodoluminescent-never.ngrok-free.dev/verify-otp", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ email: email, otp: otp, device: device })
+      })
+      .then(res => res.json())
+      .then(data => alert(data))
+      .catch(err => alert("Error verifying OTP"));
+    }
+  </script>
+</body>
+</html>
+
+
+
+
+

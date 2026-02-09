@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div class="card">
+<h2>Login</h2>
+
+<input id="email" placeholder="Email">
+<input id="password" type="password" placeholder="Password">
+
+<button onclick="login()">Login</button>
+
+<div class="link">
+New user? <a href="register.html">Register</a>
+</div>
+</div>
+
+<script>
+function getDevice(){
+    return navigator.userAgent + "-" + screen.width + "x" + screen.height;
+}
+
+function login(){
+    const device = getDevice();
+    alert("Your Device Fingerprint:\n\n" + device);
+
+    fetch("https://domingo-cathodoluminescent-never.ngrok-free.dev/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            email: email.value,
+            password: password.value,
+            device: device
+        })
+    })
+    .then(res => res.json())
+    .then(data => alert(data))
+    .catch(err => alert("Error logging in"));
+}
+</script>
+</body>
+</html>
+serve -l 5500

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div class="card">
+<h2>Register</h2>
+
+<input id="email" placeholder="Email">
+<input id="password" type="password" placeholder="Password">
+
+<button onclick="register()">Register</button>
+
+<div class="link">
+Already have account? <a href="login.html">Login</a>
+</div>
+</div>
+
+<script>
+function register(){
+    fetch("https://domingo-cathodoluminescent-never.ngrok-free.dev/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            email: email.value,
+            password: password.value
+        })
+    })
+    .then(res => res.json())
+    .then(data => alert(data))
+    .catch(err => alert("Error registering"));
+}
+</script>
+</body>
+</html>
+
