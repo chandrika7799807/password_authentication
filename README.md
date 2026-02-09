@@ -58,8 +58,9 @@ node server.js
 
 ### Step 3: Open in Browser
 
-http://localhost:5500/register.html
+http://localhost:3000/register.html or
 
+https://domingo-cathodoluminescent-never.ngrok-free.dev
 
 ### 👨‍💻 Author
 Chandrika
